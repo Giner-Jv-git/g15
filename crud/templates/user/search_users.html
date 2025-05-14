@@ -22,16 +22,49 @@
             </div>
         </form>
 
-<center>
-    {% if searched %}
-     <h1>you searched for... {{ searched }}</h1> <br>
-     {% for user in users %}
-     {{ user }} - {{ user.full_name }}<br>
-     {% endfor %}
-    {% else %}
-     <h1> You Forgot To Search!!!</h1>
-     
-    {% endif %}
-</center>
+<div class="overflow-x-auto">
+    <table class="min-w-full text-sm text-left text-gray-500">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+            <tr>
+                <th class="px-6 py-3">Full Name</th>
+                <th class="px-6 py-3">Gender</th>
+                <th class="px-6 py-3">Birth Date</th>
+                <th class="px-6 py-3">Address</th>
+                <th class="px-6 py-3">Contact Number</th>
+                <th class="px-6 py-3">Email</th>
+                <th class="px-6 py-3">Username</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if searched %}
+                {% if users %}
+                    {% for user in users %}
+                    <tr class="bg-white border-b">
+                        <td class="px-6 py-4">{{ user.full_name }}</td>
+                        <td class="px-6 py-4">{{ user.gender }}</td>
+                        <td class="px-6 py-4">{{ user.birth_date }}</td>
+                        <td class="px-6 py-4">{{ user.address }}</td>
+                        <td class="px-6 py-4">{{ user.contact_number }}</td>
+                        <td class="px-6 py-4">{{ user.email }}</td>
+                        <td class="px-6 py-4">{{ user.username }}</td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="7" class="px-6 py-4 text-center text-red-500">
+                            {{ searched }} not found
+                        </td>
+                    </tr>
+                {% endif %}
+            {% else %}
+                <tr>
+                    <td colspan="7" class="px-6 py-4 text-center">
+                        You Forgot To Search!!!
+                    </td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
 
 {% endblock 'content' %}
