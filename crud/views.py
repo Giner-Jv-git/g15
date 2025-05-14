@@ -7,6 +7,18 @@ from django.core.paginator import Paginator
 
 # Create your views here.
 
+def search_users(request):
+    if request.method == "POST":
+        searched = request.POST.get('searched', '')
+        users = Users.objects.filter(full_name__icontains=searched)
+        return render(request, 'user/search_users.html', {'searched': searched, 'users': users})
+    else:
+        # For GET requests, show an empty search or all users, as you prefer
+        return render(request, 'user/search_users.html', {'searched': '', 'users': []})
+
+	
+	
+
 def gender_list(request):
 	try:
 		genders = Genders.objects.all()
